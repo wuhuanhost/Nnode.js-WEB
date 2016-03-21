@@ -69,10 +69,10 @@ gulp.task('sass', function() {
     return sass('./sass/**/*.scss', { sourcemap: true }, { style: 'expanded' })
         .on('error', sass.logError)
         .pipe(prefix())
-        .pipe(sourcemaps.write('maps', {
-            includeContent: false,
-            sourceRoot: 'source'
-        }))
+        // .pipe(sourcemaps.write('maps', {
+        //     includeContent: false,
+        //     sourceRoot: 'source'
+        // }))
         .pipe(gulp.dest('./public/css/'))
         .pipe(notify({ message: "Sass compile Success!!!" }));
 
@@ -89,7 +89,7 @@ gulp.task('jshint', function() {
 
 
 gulp.task('clean', function() {
-    return gulp.src(['./public/dist/css', './public/dist/js', './public/dist/images'], { read: false })
+    return gulp.src(['./public/dist/css', './public/dist/js', './public/dist/images','./public/dist/lib'], { read: false })
         .pipe(clean({ force: true }))
         .pipe(notify({ message: 'dist目录清理完成' }))
 
