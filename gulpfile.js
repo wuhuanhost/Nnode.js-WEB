@@ -79,6 +79,7 @@ gulp.task('sass', function() {
 });
 
 
+
 gulp.task('jshint', function() {
     return gulp.src('./public/js/**/*.js')
         .pipe(notify({ message: "jshint检验js代码开始" }))
@@ -94,6 +95,8 @@ gulp.task('clean', function() {
         .pipe(notify({ message: 'dist目录清理完成' }))
 
 });
+
+
 
 gulp.task('watch', function() {
   
