@@ -15,7 +15,71 @@ var concat = require('gulp-concat');
 var obfuscate	=	require('gulp-obfuscate');
 
 
-gulp.task('image', ['sass', 'jshint'], function() {
+gulp.task('lib', ['bootstrap','jquery','moment'],function() {
+    gulp.src([
+        './lib/angular/angular.min.js',
+    ], { base: './lib/angular' })
+        .pipe(gulp.dest('./public/dist/lib/angular'));
+});
+
+
+gulp.task('bootstrap', function() {
+    gulp.src([      
+        './lib/bootstrap/dist/css/bootstrap.min.css',
+        './lib/bootstrap/dist/js/bootstrap.min.js',
+        './lib/bootstrap/dist/fonts/*',       
+    ], { base: './lib/bootstrap/dist' })
+        .pipe(gulp.dest('./public/dist/lib/bootstrap'));
+});
+
+
+
+gulp.task('jquery',function() {
+    gulp.src([
+        './lib/jquery/dist/jquery.min.js',
+    ], { base: './lib/jquery/dist' })
+        .pipe(gulp.dest('./public/dist/lib/jquery'));
+});
+
+
+
+gulp.task('moment',function() {
+    gulp.src([
+        './lib/moment/min/moment.min.js',
+    ], { base: './lib/moment/min' })
+        .pipe(gulp.dest('./public/dist/lib/moment'));
+});
+
+
+
+gulp.task('default', ['clean'], function() {
+    
+    gulp.start('lib','css','js','image', 'watch');
+
+});
+
+
+
+gulp.task('watch', function() {
+  
+    gulp.watch('./public/sass/**/*.scss', ['css'])
+        .on('change', function(event) {
+            console.log(event.path + "------Sass文件发生变化");
+        });
+ 
+    gulp.watch('./public/**/*.js', ['js'])
+        .on('change', function(event) {
+            console.log(event.path + "------js文件发生变化");
+        });
+
+    gulp.watch('./public/images/**', ['image'])
+        .on('change', function(event) {
+            console.log(event.path + "------图片文件发生变化");
+        });
+})
+
+
+gulp.task('image', function() {
     return gulp.src([
         './public/images',
     ], { base: './public' })
@@ -24,7 +88,7 @@ gulp.task('image', ['sass', 'jshint'], function() {
 });
 
 
-gulp.task('css', ['sass', 'jshint'], function() {
+gulp.task('css', ['sass'], function() {
     return gulp.src([
         './public/css/**/*.css',
     ], { base: './public' })
@@ -35,7 +99,6 @@ gulp.task('css', ['sass', 'jshint'], function() {
         .pipe(gulp.dest('./public/dist/css'))
         .pipe(notify({ message: "css压缩完成" }));
 });
-
 
 gulp.task('js', ['jshint'], function() {
     return gulp.src(['./public/js/**/*.js'], { base: './public' })
@@ -49,27 +112,17 @@ gulp.task('js', ['jshint'], function() {
 });
 
 
-gulp.task('lib', function() {
-    gulp.src([
-        './lib/jquery/dist/jquery.min.js',
-        './lib/bootstrap/dist/css/bootstrap.min.css',
-        './lib/bootstrap/dist/js/bootstrap.min.js',
-        './lib/bootstrap/dist/fonts/*',
-        './lib/angular/angular.min.js'
-    ], { base: './lib' })
-        .pipe(gulp.dest('./public/dist/lib'));
-});
 
 
 gulp.task('sass', function() {
-    return sass('./sass/**/*.scss', { sourcemap: true }, { style: 'expanded' })
+    return sass('./public/sass/**/*.scss', { sourcemap: true }, { style: 'expanded' })
         .on('error', sass.logError)
         .pipe(prefix())
         // .pipe(sourcemaps.write('maps', {
         //     includeContent: false,
         //     sourceRoot: 'source'
         // }))
-        .pipe(gulp.dest('./public/css/'))
+        .pipe(gulp.dest('./public/css/Sass-temp'))
         .pipe(notify({ message: "Sass compile Success!!!" }));
 
 });
@@ -92,32 +145,6 @@ gulp.task('clean', function() {
 });
 
 
-gulp.task('watch', function() {
-  
-    gulp.watch('./sass/**/*.scss', ['css'])
-        .on('change', function(event) {
-            console.log(event.path + "------------------");
-        });
- 
-    gulp.watch('./public/**/*.js', ['js'])
-        .on('change', function(event) {
-            console.log(event.path + "------------------");
-        });
-
-    gulp.watch('./public/images/**', ['image'])
-        .on('change', function(event) {
-            console.log(event.path + "------------------");
-        });
-})
-
-
-
-//默认任务
-gulp.task('default', ['clean'], function() {
-    
-    gulp.start('lib','css','js','image', 'watch');
-
-});
 
 
 

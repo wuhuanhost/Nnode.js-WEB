@@ -20,6 +20,7 @@
   "dependencies": {
     "jquery": "^1.11.3",
     "bootstrap": "^3.3.6",
-    "angular": "^1.5.2"
+    "angular": "^1.5.2",
+    "moment": "^2.12.0"
   }
 }
