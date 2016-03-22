@@ -24,8 +24,6 @@ gulp.task('image', ['sass', 'jshint'], function() {
 });
 
 
-
-
 gulp.task('css', ['sass', 'jshint'], function() {
     return gulp.src([
         './public/css/**/*.css',
@@ -37,7 +35,6 @@ gulp.task('css', ['sass', 'jshint'], function() {
         .pipe(gulp.dest('./public/dist/css'))
         .pipe(notify({ message: "css压缩完成" }));
 });
-
 
 
 gulp.task('js', ['jshint'], function() {
@@ -52,7 +49,6 @@ gulp.task('js', ['jshint'], function() {
 });
 
 
-
 gulp.task('lib', function() {
     gulp.src([
         './lib/jquery/dist/jquery.min.js',
@@ -63,7 +59,6 @@ gulp.task('lib', function() {
     ], { base: './lib' })
         .pipe(gulp.dest('./public/dist/lib'));
 });
-
 
 
 gulp.task('sass', function() {
@@ -80,7 +75,6 @@ gulp.task('sass', function() {
 });
 
 
-
 gulp.task('jshint', function() {
     return gulp.src('./public/js/**/*.js')
         .pipe(notify({ message: "jshint检验js代码开始" }))
@@ -90,16 +84,12 @@ gulp.task('jshint', function() {
 });
 
 
-
-
 gulp.task('clean', function() {
     return gulp.src(['./public/dist/css', './public/dist/js', './public/dist/images','./public/dist/lib'], { read: false })
         .pipe(clean({ force: true }))
         .pipe(notify({ message: 'dist目录清理完成' }))
 
 });
-
-
 
 
 gulp.task('watch', function() {
@@ -114,7 +104,6 @@ gulp.task('watch', function() {
             console.log(event.path + "------------------");
         });
 
-  
     gulp.watch('./public/images/**', ['image'])
         .on('change', function(event) {
             console.log(event.path + "------------------");
