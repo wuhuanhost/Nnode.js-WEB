@@ -24,6 +24,8 @@ gulp.task('image', ['sass', 'jshint'], function() {
 });
 
 
+
+
 gulp.task('css', ['sass', 'jshint'], function() {
     return gulp.src([
         './public/css/**/*.css',
@@ -48,7 +50,6 @@ gulp.task('js', ['jshint'], function() {
         .pipe(gulp.dest('./public/dist/js'))
         .pipe(notify({ message: "js压缩完成" }));
 });
-
 
 
 
@@ -89,12 +90,15 @@ gulp.task('jshint', function() {
 });
 
 
+
+
 gulp.task('clean', function() {
     return gulp.src(['./public/dist/css', './public/dist/js', './public/dist/images','./public/dist/lib'], { read: false })
         .pipe(clean({ force: true }))
         .pipe(notify({ message: 'dist目录清理完成' }))
 
 });
+
 
 
 
@@ -121,6 +125,7 @@ gulp.task('watch', function() {
 
 //默认任务
 gulp.task('default', ['clean'], function() {
+    
     gulp.start('lib','css','js','image', 'watch');
 
 });
