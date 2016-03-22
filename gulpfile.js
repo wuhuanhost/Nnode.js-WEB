@@ -62,7 +62,7 @@ gulp.task('default', ['clean'], function() {
 
 gulp.task('watch', function() {
   
-    gulp.watch('./public/sass/**/*.scss', ['css'])
+    gulp.watch('./public/Sass/**/*.scss', ['css'])
         .on('change', function(event) {
             console.log(event.path + "------Sass文件发生变化");
         });
@@ -72,16 +72,17 @@ gulp.task('watch', function() {
             console.log(event.path + "------js文件发生变化");
         });
 
-    gulp.watch('./public/images/**', ['image'])
+    gulp.watch('./public/images/*', ['image'])
         .on('change', function(event) {
             console.log(event.path + "------图片文件发生变化");
         });
+        
 })
 
 
 gulp.task('image', function() {
     return gulp.src([
-        './public/images',
+        './public/images/*',
     ], { base: './public' })
         .pipe(gulp.dest('./public/dist'))
         .pipe(notify({ message: "图片目录更新完成" }));
@@ -115,7 +116,7 @@ gulp.task('js', ['jshint'], function() {
 
 
 gulp.task('sass', function() {
-    return sass('./public/sass/**/*.scss', { sourcemap: true }, { style: 'expanded' })
+    return sass('./public/Sass/**/*.scss', { sourcemap: true }, { style: 'expanded' })
         .on('error', sass.logError)
         .pipe(prefix())
         // .pipe(sourcemaps.write('maps', {
