@@ -12,10 +12,20 @@ var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var cssmin = require('gulp-minify-css');
 var concat = require('gulp-concat');
-var obfuscate	=	require('gulp-obfuscate');
+var obfuscate = require('gulp-obfuscate');
 
+// var exec = require('child_process').exec;
 
-gulp.task('lib', ['bootstrap','jquery','moment'],function() {
+// 使用Node.js的子进程调用系统命令
+// gulp.task('start-server', function() {
+//     exec('supervisor ./bin/www', function(err) {
+//         if (err) {
+//             return err;
+//         }
+//     });
+// });
+
+gulp.task('lib', ['bootstrap', 'jquery', 'moment'], function() {
     gulp.src([
         './lib/angular/angular.min.js',
     ], { base: './lib/angular' })
@@ -24,17 +34,17 @@ gulp.task('lib', ['bootstrap','jquery','moment'],function() {
 
 
 gulp.task('bootstrap', function() {
-    gulp.src([      
+    gulp.src([
         './lib/bootstrap/dist/css/bootstrap.min.css',
         './lib/bootstrap/dist/js/bootstrap.min.js',
-        './lib/bootstrap/dist/fonts/*',       
+        './lib/bootstrap/dist/fonts/*',
     ], { base: './lib/bootstrap/dist' })
         .pipe(gulp.dest('./public/dist/lib/bootstrap'));
 });
 
 
 
-gulp.task('jquery',function() {
+gulp.task('jquery', function() {
     gulp.src([
         './lib/jquery/dist/jquery.min.js',
     ], { base: './lib/jquery/dist' })
@@ -43,7 +53,7 @@ gulp.task('jquery',function() {
 
 
 
-gulp.task('moment',function() {
+gulp.task('moment', function() {
     gulp.src([
         './lib/moment/min/moment.min.js',
     ], { base: './lib/moment/min' })
@@ -51,22 +61,20 @@ gulp.task('moment',function() {
 });
 
 
-
 gulp.task('default', ['clean'], function() {
-    
-    gulp.start('lib','css','js','image', 'watch');
+
+    gulp.start('lib', 'css', 'js', 'image', 'watch', 'start-server');
 
 });
 
 
-
 gulp.task('watch', function() {
-  
+
     gulp.watch('./public/Sass/**/*.scss', ['css'])
         .on('change', function(event) {
             console.log(event.path + "------Sass文件发生变化");
         });
- 
+
     gulp.watch('./public/**/*.js', ['js'])
         .on('change', function(event) {
             console.log(event.path + "------js文件发生变化");
@@ -76,7 +84,7 @@ gulp.task('watch', function() {
         .on('change', function(event) {
             console.log(event.path + "------图片文件发生变化");
         });
-        
+
 })
 
 
@@ -139,7 +147,7 @@ gulp.task('jshint', function() {
 
 
 gulp.task('clean', function() {
-    return gulp.src(['./public/dist/css', './public/dist/js', './public/dist/images','./public/dist/lib'], { read: false })
+    return gulp.src(['./public/dist/css', './public/dist/js', './public/dist/images', './public/dist/lib'], { read: false })
         .pipe(clean({ force: true }))
         .pipe(notify({ message: 'dist目录清理完成' }))
 
