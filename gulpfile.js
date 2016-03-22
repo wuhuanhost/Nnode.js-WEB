@@ -13,17 +13,17 @@ var uglify = require('gulp-uglify');
 var cssmin = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var obfuscate = require('gulp-obfuscate');
+var livereload = require('gulp-livereload');
+var exec = require('child_process').exec;
 
-// var exec = require('child_process').exec;
-
-// 使用Node.js的子进程调用系统命令
-// gulp.task('start-server', function() {
-//     exec('supervisor ./bin/www', function(err) {
-//         if (err) {
-//             return err;
-//         }
-//     });
-// });
+//使用Node.js的子进程调用系统命令
+gulp.task('start-server', function() {
+    exec('supervisor ./bin/www', function(err) {
+        if (err) {
+            return err;
+        }
+    });
+});
 
 gulp.task('lib', ['bootstrap', 'jquery', 'moment'], function() {
     gulp.src([
@@ -65,11 +65,19 @@ gulp.task('default', ['clean'], function() {
 
     gulp.start('lib', 'css', 'js', 'image', 'watch', 'start-server');
 
+
+});
+
+
+gulp.task('reload', function() {
+    gulp.src(['./public/css/**/*', './public/js/**/*', './public/images/**/*', './app/views/**/*'])
+        .pipe(livereload());
+
 });
 
 
 gulp.task('watch', function() {
-
+    livereload.listen();
     gulp.watch('./public/Sass/**/*.scss', ['css'])
         .on('change', function(event) {
             console.log(event.path + "------Sass文件发生变化");
@@ -82,10 +90,18 @@ gulp.task('watch', function() {
 
     gulp.watch('./public/images/*', ['image'])
         .on('change', function(event) {
+
             console.log(event.path + "------图片文件发生变化");
         });
 
+    gulp.watch(['./public/css/**/*', './public/js/**/*', './public/images/**/*', './app/views/**/*'])
+        .on('change', function(event) {
+            gulp.start('reload');
+        });
+
+
 })
+
 
 
 gulp.task('image', function() {
@@ -122,9 +138,8 @@ gulp.task('js', ['jshint'], function() {
 
 
 
-
 gulp.task('sass', function() {
-    return sass('./public/Sass/**/*.scss', { sourcemap: true }, { style: 'expanded' })
+    return sass('./public/Sass/**/*.scss', { sourcemap: false }, { style: 'expanded' })
         .on('error', sass.logError)
         .pipe(prefix())
         // .pipe(sourcemaps.write('maps', {
