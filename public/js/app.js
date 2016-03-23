@@ -1,15 +1,11 @@
-(function() {
+/**
+ * [getName description]
+ * @return {[type]} [description]
+ */
+function getName() {
 
-    console.log("okay");
 
+    alert("getName()");
 
-    function ABC() {
-
-        alert("okay");
-
-    }
-
-    ABC();
-    ABC();
-})();
+}
 

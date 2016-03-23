@@ -16,6 +16,8 @@ var obfuscate = require('gulp-obfuscate');
 var livereload = require('gulp-livereload');
 var exec = require('child_process').exec;
 
+
+
 //使用Node.js的子进程调用系统命令
 gulp.task('start-server', function() {
     exec('supervisor ./bin/www', function(err) {
@@ -27,18 +29,18 @@ gulp.task('start-server', function() {
 
 gulp.task('lib', ['bootstrap', 'jquery', 'moment'], function() {
     gulp.src([
-        './lib/angular/angular.min.js',
-    ], { base: './lib/angular' })
+            './lib/angular/angular.min.js',
+        ], { base: './lib/angular' })
         .pipe(gulp.dest('./public/dist/lib/angular'));
 });
 
 
 gulp.task('bootstrap', function() {
     gulp.src([
-        './lib/bootstrap/dist/css/bootstrap.min.css',
-        './lib/bootstrap/dist/js/bootstrap.min.js',
-        './lib/bootstrap/dist/fonts/*',
-    ], { base: './lib/bootstrap/dist' })
+            './lib/bootstrap/dist/css/bootstrap.min.css',
+            './lib/bootstrap/dist/js/bootstrap.min.js',
+            './lib/bootstrap/dist/fonts/*',
+        ], { base: './lib/bootstrap/dist' })
         .pipe(gulp.dest('./public/dist/lib/bootstrap'));
 });
 
@@ -46,8 +48,8 @@ gulp.task('bootstrap', function() {
 
 gulp.task('jquery', function() {
     gulp.src([
-        './lib/jquery/dist/jquery.min.js',
-    ], { base: './lib/jquery/dist' })
+            './lib/jquery/dist/jquery.min.js',
+        ], { base: './lib/jquery/dist' })
         .pipe(gulp.dest('./public/dist/lib/jquery'));
 });
 
@@ -55,8 +57,8 @@ gulp.task('jquery', function() {
 
 gulp.task('moment', function() {
     gulp.src([
-        './lib/moment/min/moment.min.js',
-    ], { base: './lib/moment/min' })
+            './lib/moment/min/moment.min.js',
+        ], { base: './lib/moment/min' })
         .pipe(gulp.dest('./public/dist/lib/moment'));
 });
 
@@ -106,8 +108,8 @@ gulp.task('watch', function() {
 
 gulp.task('image', function() {
     return gulp.src([
-        './public/images/*',
-    ], { base: './public' })
+            './public/images/*',
+        ], { base: './public' })
         .pipe(gulp.dest('./public/dist'))
         .pipe(notify({ message: "图片目录更新完成" }));
 });
@@ -115,8 +117,8 @@ gulp.task('image', function() {
 
 gulp.task('css', ['sass'], function() {
     return gulp.src([
-        './public/css/**/*.css',
-    ], { base: './public' })
+            './public/css/**/*.css',
+        ], { base: './public' })
         .pipe(concat('app.css'))
         .pipe(gulp.dest('./public/dist/css'))
         .pipe(cssmin())
@@ -156,9 +158,10 @@ gulp.task('jshint', function() {
     return gulp.src('./public/js/**/*.js')
         .pipe(notify({ message: "jshint检验js代码开始" }))
         .pipe(jshint())
-        .pipe(jshint.reporter())
+        .pipe(jshint.reporter('default'))
         .pipe(notify({ message: "jshint检验js代码结束" }));
 });
+
 
 
 gulp.task('clean', function() {
@@ -167,8 +170,3 @@ gulp.task('clean', function() {
         .pipe(notify({ message: 'dist目录清理完成' }))
 
 });
-
-
-
-
-

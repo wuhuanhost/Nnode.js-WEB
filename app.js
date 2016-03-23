@@ -4,13 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var session = require('express-session');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var MongoStore = require('connect-mongo')(session);
-
+var mongoose = require('mongoose');
+var dbinfo = require('./app/utils/db');
 var app = express();
 
 // view engine setup
@@ -25,17 +24,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var connection = mongoose.createConnection(dbinfo.getUrl());
 
+/**
+ * 使用sesssion
+ * @type {String}
+ */
 app.use(session({
     secret: 'books-session',
-    store: new MongoStore({ url: 'mongodb://localhost:12345/db', collections: 'sessions' }),
-    cookie: { maxAge: 60000 },
+    store: new MongoStore({ mongooseConnection: connection}),
+    cookie: { maxAge:  new Date(Date.now() + 1000*60*60*24*14)},//14天
 }));
-
 
 app.use('/', routes);
 app.use('/users', users);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,7 +45,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
 
 // error handlers
 // development error handler
