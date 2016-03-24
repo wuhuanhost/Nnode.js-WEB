@@ -2,60 +2,15 @@
 
 var express = require('express');
 var router = express.Router();
-var dbinfo = require('../app/utils/db');
-var mongoose = require('mongoose');
-var person = require('../app/models/person');
-var MD5 = require('md5');
-var _ = require('underscore');
-var log = require('../app/utils/log4js');
+var users = require("../app/controllers/users");
 
-
-mongoose.connect(dbinfo.getUrl());
-mongoose.set("debug", true); //mongoose调试模式
-
-
-/* GET home page. */
-router.get('/login', function(req, res, next) {
-
-    var evens = _.filter([1, 2, 3, 4, 5, 6], function(num) {
-        return num % 2 == 0;
-    });
-    log.info(evens);
-
-    log.info(dbinfo.getUrl());
-
-    log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    log.info(req.session);
-    log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-
-
-    if (req.session.user != null) {
-        log.info("mongoDB中的session存在......")
-    } else {
-        var user = {
-            userName: 'liming',
-            userPwd: MD5('123456')
-        };
-        req.session.user = user;
-    }
-
-    // person.findByName(function(err,data){
-    //     log.info("=================================")
-    //     log.info(data);
-
-    // });
-
-
-    res.render('index', { title: 'Express' });
-
-
-});
-
-
-
-
-
-
-
+/**
+ * 用户管理
+ */
+router.get('/admin/singIn',users.singIn);//用户注册
+router.get('/admin/logIn', users.logIn);//用户登录
+router.get('/admin/logOut',users.logOut);//用户退出
+router.get('/admin/users',users.users)//显示所有的用户
+router.get('/admin/user/:userAccount',users.user);//根据用户名查询用户
 
 module.exports = router;

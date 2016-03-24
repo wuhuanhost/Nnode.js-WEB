@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-    res.sendfile('/books/public/test.html');
+
+
+router.get("/users", function(req, res, err) {
+    console.log(__dirname)
+    res.json({ data: "hello,Express!!!" });
 });
 
 
-
-module.exports = router;
+module.exports=router;
