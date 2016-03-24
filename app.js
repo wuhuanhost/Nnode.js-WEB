@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var chat=require('./routes/chat');
 var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var dbinfo = require('./app/utils/db');
@@ -22,7 +23,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 var connection = mongoose.createConnection(dbinfo.getUrl());
 
@@ -36,8 +42,20 @@ app.use(session({
     cookie: { maxAge:  new Date(Date.now() + 1000*60*60*24*14)},//14天
 }));
 
+
 app.use('/', routes);
 app.use('/users', users);
+app.use("/chat",chat);
+
+/**
+ * socketIo使用
+ * @param  {[type]} server [description]
+ * @return {[type]}        [description]
+ */
+app.socketReady=function(server){
+  chat.startSocke(server);
+};
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

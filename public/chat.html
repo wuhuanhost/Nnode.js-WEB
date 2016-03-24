@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    div {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+    }
+    
+    .ball1 {
+        background-color: red;
+        margin-top: 10px;
+        margin-left: 200px;
+    }
+    
+    .ball2 {
+        background-color: green;
+        margin-top: 10px;
+    }
+    
+    .ball3 {
+        background-color: blue;
+        margin-top: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+<script>
+  var socket = io('http://localhost:3000');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script> -->
+    <script src="http://localhost:3000/dist/lib/q/q.js"></script>
+    <!-- <div id="box" style="width: 20px; height: 20px; background-color: red;"></div> -->
+    <div class="ball1" style="margin-left:10px;"></div>
+    <div class="ball2" style="margin-left:10px;"></div>
+    <div class="ball3" style="margin-left:10px;"></div>
+    <script>
+    // (function() {
+    //     "use strict";
+    //     var deferredAnimate = Q.async(function*(element) {
+    //         for (var i = 0; i < 100; ++i) {
+    //             element.style.marginLeft = i + "px";
+    //             yield Q.delay(20);
+    //         }
+    //     });
+    //     Q.spawn(function*() {
+    //         yield deferredAnimate(document.getElementById("box"));
+    //         alert("Done!");
+    //     });
+    // }());
+
+
+    var ball1 = document.querySelector(".ball1");
+    var ball2 = document.querySelector(".ball2");
+    var ball3 = document.querySelector(".ball3");
+
+    // /**
+    //  * 异步动画方法
+    //  * @param  {[type]}   ball   [description]
+    //  * @param  {[type]}   offset [description]
+    //  * @param  {Function} cb     [description]
+    //  * @return {[type]}          [description]
+    //  */
+    // function animate(ball, offset, cb) {
+    //     setTimeout(function() {
+    //         var marginLeft = parseInt(ball.style.marginLeft, 10);
+    //         if (marginLeft === offset) {
+    //             cb && cb();
+    //         } else {
+    //             if (marginLeft < offset) {
+    //                 marginLeft++;
+    //             } else {
+    //                 marginLeft--;
+    //             }
+    //             console.log(ball.style.marginLeft);
+    //             ball.style.marginLeft = marginLeft + "px";
+    //             animate(ball, offset, cb);
+    //         }
+    //     }, 10)
+    // }
+
+    // /*
+    //  *回调方式执行
+    //  */
+    // animate(ball1, 200, function() {
+    //     animate(ball2, 300, function() {
+    //         animate(ball3, 400, function() {
+    //             animate(ball3, 200, function() {
+    //                 animate(ball2, 200, function() {
+
+    //                 })
+    //             })
+    //         })
+    //     })
+    // });
+
+    /**
+     * 封装成promise对象的动画方法
+     * @param  {[type]} ball   [description]
+     * @param  {[type]} offset [description]
+     * @return {[type]}        [description]
+     */
+    function promiseAnimate(ball, offset) {
+        return Q.Promise(function(resolve, reject) {
+            function _animate() {
+                setTimeout(function() {
+                    var marginLeft = parseInt(ball.style.marginLeft, 10);
+                    if (marginLeft === offset) {
+                        resolve();
+                    } else {
+                        if (marginLeft < offset) {
+                            marginLeft++;
+                        } else {
+                            marginLeft--;
+                        }
+                        ball.style.marginLeft = marginLeft + "px";
+                        _animate();
+                    }
+                }, 10)
+            }
+            _animate();
+        });
+    }
+
+    /**
+     * 优雅的异步执行方法
+     */
+    promiseAnimate(ball1, 900)
+        .then(function() {
+            return promiseAnimate(ball2, 600);
+        })
+        .then(function() {
+            return promiseAnimate(ball3, 100);
+        }).then(function() {
+            return promiseAnimate(ball1, 300);
+        }).then(function() {
+            return promiseAnimate(ball2, 300);
+        }).then(function() {
+            return promiseAnimate(ball3, 300);
+        })
+
+    var fun = function*() {
+        yield 1;
+        yield 2;
+        yield 3;
+    }
+
+    var f = fun();
+    console.log(f.next());
+    console.log(f.next());
+    console.log(f.next());
+    console.log(f.next());
+
+
+    // function* gen(x) {
+    //     var y = yield x + 2;
+    //     return y;
+    // }
+
+    // var g = gen(1);
+    // console.log(g.next().value); // { value: 3, done: false }
+    // console.log(g.next(2).value); // { value: 2, done: true }
+    // console.log(g.next(2).value); // { value: 2, done: true }
+    </script>
+</body>
+
+</html>

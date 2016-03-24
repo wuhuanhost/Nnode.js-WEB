@@ -27,11 +27,20 @@ gulp.task('start-server', function() {
     });
 });
 
-gulp.task('lib', ['bootstrap', 'jquery', 'moment'], function() {
+
+
+
+gulp.task('lib', ['bootstrap', 'jquery', 'moment', 'qjs'], function() {
     gulp.src([
             './lib/angular/angular.min.js',
         ], { base: './lib/angular' })
         .pipe(gulp.dest('./public/dist/lib/angular'));
+});
+
+
+gulp.task('qjs', function() {
+    gulp.src('./lib/q/q.js', { base: './lib/q' })
+        .pipe(gulp.dest('./public/dist/lib/q'));
 });
 
 

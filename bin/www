@@ -22,6 +22,11 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
+ *启动socketIO，和服务共用3000端口
+ */
+app.socketReady(server);
+
+/**
  * Listen on provided port, on all network interfaces.
  */
 
