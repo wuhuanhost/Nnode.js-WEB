@@ -29,15 +29,19 @@ exports.logIn = function(req, res) {
     } else {
         if (req.body.userName === "root" && req.body.userPwd === "123456") { //用户名密码正确
             var user = {
-                userName: 'liming',
+                userName: 'root',
                 userPwd: MD5('123456')
             };
             req.session.user = user;
-            res.render("index", { data: "欢迎你，"+req.body.userName });
+            res.redirect("/admin");
         } else {
             //用户名密码错误
-            console.log("用户名密码错误");
-            res.render("login", { data: "用户名密码错误" });
+            if (req.body.userName != "" && req.body.userPwd != "") {
+                console.log("用户名密码错误");
+                res.render("login", { data: "用户名密码错误" });
+            } else {
+                res.render("login", { data: "用户名密码不能为空" });
+            }
         }
     }
 };

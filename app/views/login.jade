@@ -2,30 +2,34 @@ extends layout
 
 
 block content
- h1 #{data}
  div.container
   div.login-form 
    form.form-horizontal(action='/admin/logIn' method='post')
     div.form-group
      div.clo-md-10.col-md-offset-3
-      h1 
+      h1(style='color:#EEEEEE;line-height:36px;') 
        span.glyphicon.glyphicon-lock
        登录管理系统
     div.form-group
-     label.control-label.col-md-2.col-lg-2.col-sm-2.col-md-2 账号 
+     label.control-label.col-md-2.col-lg-2.col-sm-2.col-md-2(style='color:#EEEEEE') 账号 
      div.col-md-10.col-lg-10.col-sm-10.col-md-10
       input.form-control(type="account" id="exampleInputEmail1" placeholder="Email" name='userName') 
     div.form-group
-     label.control-label.col-md-2 密码 
+     label.control-label.col-md-2(style='color:#EEEEEE') 密码 
      div.col-md-10
       input.form-control(type="password" id="exampleInputEmail1" placeholder="password" name='userPwd')
     div.form-group
      div.col-md-10.col-md-offset-2.checkbox
-      label
+      label(style='color:#EEEEEE')
        input(type='checkbox')
        记住我  
     div.form-group
      div.col-md-10.col-md-offset-2
       input.form-control.btn.btn-primary(type='submit' vaule='登录')
 
+ h1(style='color:#EEEEEE') 调试信息>>>：#{data}
 
+ script.
+  if('#{data}'=="用户名密码不能为空"||'#{data}'=="用户名密码错误"){
+   window.location.href='/admin'
+  }
