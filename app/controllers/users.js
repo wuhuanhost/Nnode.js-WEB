@@ -3,7 +3,7 @@ var log = require('../utils/log4js');
 var mongoose = require('mongoose');
 var person = require('../models/person');
 var MD5 = require('md5');
-var _ = require('underscore');
+var _ = require('lodash');
 
 /**
  * 用户登录的方法
@@ -22,16 +22,24 @@ mongoose.set("debug", true); //mongoose调试模式
  * @return {[type]}     [description]
  */
 exports.logIn = function(req, res) {
+    console.log(_.pull([1, 2, 3, 4], 4))
     if (req.session.user != null) {
         log.info("mongoDB中的session存在......")
+        res.render("index", { data: req.session.user.userName })
     } else {
-        var user = {
-            userName: 'liming',
-            userPwd: MD5('123456')
-        };
-        req.session.user = user;
+        if (req.body.userName === "root" && req.body.userPwd === "123456") { //用户名密码正确
+            var user = {
+                userName: 'liming',
+                userPwd: MD5('123456')
+            };
+            req.session.user = user;
+            res.render("index", { data: "欢迎你，"+req.body.userName });
+        } else {
+            //用户名密码错误
+            console.log("用户名密码错误");
+            res.render("login", { data: "用户名密码错误" });
+        }
     }
-    res.json({ data: 'hello，express' })
 };
 
 

@@ -1,5 +1,31 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  header.navbar.navbar-default.navbar-fixed-top
+   div.container-fluid
+    div.navbar-header
+     div.navbar-brand #{data}
+     button.navbar-toggle.collapsed(type='button' data-toggle='collapse' data-target='#navbar')
+      span.sr-only
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar         
+    div#navbar.collapse.navbar-collapse
+     ul.nav.navbar-nav.navbar-right
+      li
+       a 首页
+      li
+       a 用户
+      li
+       a 退出
+      li
+       a 关于
+
+ br
+ br
+ br
+ br
+ br
+ br
+  p Welcome to #{data}

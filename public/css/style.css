@@ -1,6 +1,15 @@
-html,body{
-    
-    background-color: #eeeeee;
-    
-    
+body,html{
+	height:100%;
+	    /*background-image: url('../images/login_bg.jpg');*/
+    background-size: 100% 100%;
+    background-repeat: repeat
+}
+
+.login-form{
+/*	padding-top:100px;
+	padding-bottom:100px;*/
+	/*background-color: red;*/
+	width:400px;
+	margin:0 auto;
+	margin-top:100px;
 }

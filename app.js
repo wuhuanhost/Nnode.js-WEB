@@ -16,6 +16,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, '/app/views'));
 app.set('view engine', 'jade');
+app.locals.pretty = true;//jade输出的页面不压缩
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
