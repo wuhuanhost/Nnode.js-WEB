@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 
 var PersonSchema = new mongoose.Schema({
@@ -7,15 +6,11 @@ var PersonSchema = new mongoose.Schema({
     sex: String
 });
 
-
 PersonSchema.statics={
     findByName:function(cb){
         console.log(">>>>>>>>>>>>>>>>>>>>>>>")
-       return this.find({}).exec(cb);
-       
+       return this.find({}).exec(cb);       
     }
 }
-
-
 
 module.exports=PersonSchema;

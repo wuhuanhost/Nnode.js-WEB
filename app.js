@@ -27,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 var connection = mongoose.createConnection(dbinfo.getUrl());
 
-
 /**
  * 使用sesssion
  * @type {String}
@@ -37,7 +36,6 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: connection}),
     cookie: { maxAge:  new Date(Date.now() + 1000*60*60*24*14)},//14天
 }));
-
 
 app.use('/', routes);
 app.use('/users', users);
