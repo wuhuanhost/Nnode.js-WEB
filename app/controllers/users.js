@@ -2,9 +2,9 @@ var dbinfo = require('../utils/db');
 var log = require('../utils/log4js');
 var mongoose = require('mongoose');
 var person = require('../models/person');
+var UserModel = require('../models/user-model');
 var MD5 = require('md5');
 var _ = require('lodash');
-
 /**
  * 用户登录的方法
  * @param  {[type]} req [description]
@@ -46,7 +46,6 @@ exports.logIn = function(req, res) {
     }
 };
 
-
 /**
  * 根据用户名查找单个用户
  * @param  {[type]} req [description]
@@ -67,8 +66,6 @@ exports.user = function(req, res) {
  */
 exports.logOut = function(req, res) {
 
-
-
 };
 
 
@@ -80,8 +77,6 @@ exports.logOut = function(req, res) {
  */
 exports.singIn = function(req, res) {
 
-
-
 };
 
 /**
@@ -92,6 +87,30 @@ exports.singIn = function(req, res) {
  */
 exports.users = function(req, res) {
 
+};
 
+/**
+ * [创建用户]
+ * @param {[type]} req [description]
+ * @param {[type]} res [description]
+ */
+exports.addUser = function(req, res) {
+    var roleId = req.params.role_id; //角色编号
+    var users = new UserModel({
+        "userName": 'liming',
+        "userPwd": '123456789',
+        "userNickName": '李明',
+        "userState": 0,
+        "token": '',
+        "role": roleId
+    });
 
+    users.save(function(err) {
+        if (err) {
+            log.info(err.errmsg);
+            res.json({ code: 0, msg: '用户添加失败', success: false });
+        } else {
+            res.json({ code: 1, msg: '用户添加成功', success: true });
+        }
+    });
 };

@@ -14,7 +14,8 @@ var cssmin = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var obfuscate = require('gulp-obfuscate');
 var livereload = require('gulp-livereload');
-const filter = require('gulp-filter');
+var filter = require('gulp-filter');
+var zip = require('gulp-zip');
 var exec = require('child_process').exec;
 
 
@@ -39,17 +40,16 @@ gulp.task('lib', function() {
 
 gulp.task('default', ['clean'], function() {
 
-    gulp.start('css', 'js', 'image','html');
+    gulp.start('css', 'js', 'image', 'html');
 
 
 });
 
 
-gulp.task('build',['lib'],function() {
-    gulp.src([
-            './webapp/dist/**',
-        ], { base: './webapp/dist' })
-        .pipe(gulp.dest('./public/'));
+gulp.task('build', ['lib'], function() {
+    gulp.src('./public/**')
+        .pipe(zip('build.zip'))
+        .pipe(gulp.dest('./'));
 });
 
 
@@ -89,8 +89,8 @@ gulp.task('watch', function() {
 
 
 gulp.task('html', function() {
-    var htmlFilter=filter(['**','!webapp/lib/**']);
-    
+    var htmlFilter = filter(['**', '!webapp/lib/**']);
+
     return gulp.src([
             './webapp/**/*.html',
         ])
@@ -160,7 +160,7 @@ gulp.task('jshint', function() {
 
 
 gulp.task('clean', function() {
-    return gulp.src(['./public/dist/css', './public/dist/js', './public/dist/images', './public/dist/lib','./public/**/*.html','./public'], { read: false })
+    return gulp.src(['./public/dist/css', './public/dist/js', './public/dist/images', './public/dist/lib', './public/**/*.html', './public','./build.zip'], { read: false })
         .pipe(clean({ force: true }))
         .pipe(notify({ message: 'public目录清理完成' }))
 
