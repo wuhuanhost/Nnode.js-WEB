@@ -5,6 +5,7 @@ var UserSchema = new mongoose.Schema({
     userPwd: String, //密码
     userNickName: String, //昵称，别名
     email:{type:String,default:''},
+    phone:{type:String,default:''},
     createTime: { type: Date, default: Date.now }, //创建时间
     /**
      * [用户状态]

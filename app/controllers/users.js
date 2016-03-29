@@ -95,16 +95,14 @@ exports.users = function(req, res) {
  * @param {[type]} res [description]
  */
 exports.addUser = function(req, res) {
-    var roleId = req.params.role_id; //角色编号
+    var userName = req.params.userName; //角色编号
     var users = new UserModel({
-        "userName": 'liming',
+        "userName": userName,
         "userPwd": '123456789',
         "userNickName": '李明',
         "userState": 0,
-        "token": '',
-        "role": roleId
+        "token": ''
     });
-
     users.save(function(err) {
         if (err) {
             log.info(err.errmsg);
