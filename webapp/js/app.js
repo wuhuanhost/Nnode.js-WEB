@@ -1,11 +1,9 @@
 var app = angular.module('myApp', ['ui.router']);
-
-
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/index");
     $stateProvider
         .state('index', {
-            url: "/home",
+            url: "/index",
             views: {
                 '': {
                     templateUrl: "tpls/home.html",
