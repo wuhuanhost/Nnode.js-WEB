@@ -5,7 +5,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/index");
     $stateProvider
         .state('index', {
-            url: "",
+            url: "/home",
             views: {
                 '': {
                     templateUrl: "tpls/home.html",
