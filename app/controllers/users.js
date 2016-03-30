@@ -23,9 +23,15 @@ mongoose.set("debug", true); //mongoose调试模式
  */
 exports.logIn = function(req, res) {
     console.log(_.pull([1, 2, 3, 4], 4))
+
+    if (req.body.data != null && req.body.data != "undefined") {
+        req.body.userName = req.body.data.userName;
+        req.body.userPwd = req.body.data.userPwd;
+    }
+
     if (req.session.user != null) {
         log.info("mongoDB中的session存在......")
-        res.render("index", { data: req.session.user.userName })
+        res.json("index", { data: req.session.user.userName, success: true })
     } else {
         if (req.body.userName === "root" && req.body.userPwd === "123456") { //用户名密码正确
             var user = {
@@ -33,14 +39,14 @@ exports.logIn = function(req, res) {
                 userPwd: MD5('123456')
             };
             req.session.user = user;
-            res.redirect("/admin");
+            res.json("login", { data: "登录成功", success: true });
         } else {
             //用户名密码错误
             if (req.body.userName != "" && req.body.userPwd != "") {
                 console.log("用户名密码错误");
-                res.render("login", { data: "用户名密码错误" });
+                res.json("login", { data: "用户名密码错误", success: false });
             } else {
-                res.render("login", { data: "用户名密码不能为空" });
+                res.json("login", { data: "用户名密码不能为空", success: false });
             }
         }
     }

@@ -25,7 +25,7 @@ router.get('/admin/users/new/:userName', users.addUser); //创建用户
 router.get('/admin/chinesetask/new/:userName',chinesetask.addChineseTask);//给用户分配汉字任务
 
 router.get('/user/tasklist/:userName',chinesetask.tasklist);//用户查询分配给自己的任务
-
+router.post("/user/logIn",users.logIn);
 
 
 

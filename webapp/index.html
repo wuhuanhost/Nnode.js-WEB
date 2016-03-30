@@ -4,35 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <title>用户任务列表页面</title>
-    <style>
-        table {
-        width: 100%;
-    }
-    table,
-    table td,
-    table th {
-        border: 1px solid #999999;
-        border-collapse: collapse;
-        text-align: center
-            }
-         table tr {
-            height: 40px;
-        }
-
-    </style>
-    <script src='/lib/angular/angular.min.js'></script>
-    <script src='/lib/angular-ui-router/release/angular-ui-router.min.js'></script>
-    <script src='/js/app.js'></script>
-    <script src='/js/controllers/taskListCtrl.js'></script>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/angular-ui-grid/ui-grid.min.css">
+    <script src="/lib/angular/angular.min.js"></script>
+    <script src="/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/lib/angular-ui-grid/ui-grid.min.js"></script>
+    <!-- <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script> -->
+    <script src="/js/app.js"></script>
+    <script src="/js/services/authService.js"></script>
+    <script src="/js/controllers/taskListCtrl.js"></script>
+    <script src="/js/controllers/loginCtrl.js"></script>
+    <script src="/js/controllers/uiGridCtrl.js"></script>
 </head>
 
 <body>
     <!-- ui-view根节点 -->
     <div ui-view>
     </div>
-    <a  ui-sref='tasklist'>任务列表</a>
-    <a  ui-sref='person'>我的个人主页</a>
-    <a  ui-sref='index'>首页</a>
 </body>
 
 </html>
