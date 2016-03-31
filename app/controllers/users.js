@@ -23,7 +23,6 @@ mongoose.set("debug", true); //mongoose调试模式
  */
 exports.logIn = function(req, res) {
     console.log(_.pull([1, 2, 3, 4], 4))
-
     if (req.body.data != null && req.body.data != "undefined") {
         req.body.userName = req.body.data.userName;
         req.body.userPwd = req.body.data.userPwd;
@@ -31,22 +30,22 @@ exports.logIn = function(req, res) {
 
     if (req.session.user != null) {
         log.info("mongoDB中的session存在......")
-        res.json("index", { data: req.session.user.userName, success: true })
+        res.json({ data: req.session.user.userName, success: true })
     } else {
-        if (req.body.userName === "root" && req.body.userPwd === "123456") { //用户名密码正确
+        if (req.body.userName === "liming" && req.body.userPwd === "123456") { //用户名密码正确
             var user = {
-                userName: 'root',
+                userName: 'liming',
                 userPwd: MD5('123456')
             };
             req.session.user = user;
-            res.json("login", { data: "登录成功", success: true });
+            res.json({ data: "登录成功", success: true });
         } else {
             //用户名密码错误
             if (req.body.userName != "" && req.body.userPwd != "") {
                 console.log("用户名密码错误");
-                res.json("login", { data: "用户名密码错误", success: false });
+                res.json({ data: "用户名密码错误", success: false });
             } else {
-                res.json("login", { data: "用户名密码不能为空", success: false });
+                res.json({ data: "用户名密码不能为空", success: false });
             }
         }
     }
@@ -58,9 +57,20 @@ exports.logIn = function(req, res) {
  * @param  {[type]} res [description]
  * @return {[type]}     [description]
  */
-exports.user = function(req, res) {
-    log.info(">>>>>>>>>>" + req.query.userAccount);
-    res.json({ data: req.params.userAccount })
+exports.getUserInfoByName = function(req, res) {
+    log.info(">>>>>>>>>>获取用户信息" + req.params.userName);
+    if (req.session.user == null) {
+        log.info("mongoDB中的session存在......")
+        res.json("index", { data: req.session.user.userName, success: false })
+    } else {
+        UserModel.findByName(req.params.userName, function(err, data) {
+            if (err) {
+                log.error(err);
+            } else {
+                res.json({ data: data, success: true });
+            }
+        });
+    }
 };
 
 /**
@@ -105,9 +115,10 @@ exports.addUser = function(req, res) {
     var users = new UserModel({
         "userName": userName,
         "userPwd": '123456789',
-        "userNickName": '李明',
+        "nickName": '李明',
         "userState": 0,
-        "token": ''
+        "token": '',
+        "phone": "13892656369"
     });
     users.save(function(err) {
         if (err) {

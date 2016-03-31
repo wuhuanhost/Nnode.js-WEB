@@ -1,20 +1,23 @@
 <!-- 登录页面片段 -->
-<div ui-view="login" class="container" ng-controller='loginCtrl'>
+<div ui-view="login" class="container">
     <div style="width:440px;margin:0 auto;margin-top:140px;">
         <div class="col-sm-9 col-sm-offset-3" style='padding-bottom:40px;'>
             <h1 class="text-center">学习网用户登录</h1>
         </div>
-        <form class="form-horizontal" ng-submit="login()">
+        <form class="form-horizontal" ng-submit="login()" name="loginForm">
             <div class="form-group">
                 <label for="" class='col-sm-3 control-label'>帐 号：</label>
                 <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="请输入帐号" ng-model="formData.userName">
+                    <input type="text" name="userName" class="form-control" placeholder="请输入帐号" ng-model="formData.userName" required>
+                    <p ng-show="loginForm.userName.$invalid&&!loginForm.userName.$pristine" class="help-block bg-danger">用户名不能为空</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="" class="col-sm-3 control-label">密 码：</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="请输入密码" ng-model="formData.userPwd">
+                    <input type="password" name="userPwd" class="form-control" placeholder="请输入密码" ng-model="formData.userPwd" ng-minlength="6" ng-maxlength="12" required>
+                    <p ng-show="loginForm.userPwd.$error.minlength" class="help-block bg-danger">密码最少6位</p>
+                    <p ng-show="loginForm.userPwd.$error.maxlength" class="help-block bg-danger">密码最长12位</p>
                 </div>
             </div>
             <div class="form-group">
@@ -28,7 +31,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <button type="submit" class='btn btn-primary btn-block'>登录</button>
+                    <button type="submit" class='btn btn-primary btn-block' ng-disabled="loginForm.$invalid">登录</button>
                 </div>
             </div>
         </form>

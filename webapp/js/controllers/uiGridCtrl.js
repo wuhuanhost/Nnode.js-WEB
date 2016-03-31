@@ -1,4 +1,6 @@
-app.controller('uiGridCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('uiGridCtrl', ['$scope','$http','i18nService', function($scope, $http,i18nService) {
+   
+i18nService.setCurrentLang('zh-cn');
     $scope.gridOptions = {
         enableSorting: true,
         columnDefs: [

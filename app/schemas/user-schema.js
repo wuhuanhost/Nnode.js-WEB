@@ -4,8 +4,8 @@ var UserSchema = new mongoose.Schema({
     userName: { type: String, unique: true }, //用户名唯一
     userPwd: String, //密码
     userNickName: String, //昵称，别名
-    email:{type:String,default:''},
-    phone:{type:String,default:''},
+    email: { type: String, default: '' },
+    phone: { type: String, default: '' },
     createTime: { type: Date, default: Date.now }, //创建时间
     /**
      * [用户状态]
@@ -34,7 +34,7 @@ UserSchema.pre('save', function(next) {
 })
 
 
-UserSchema.save = function(err,cb) {
+UserSchema.save = function(err, cb) {
     if (err) {
         log.info("保存失败" + err);
         exec(cb)
@@ -43,9 +43,22 @@ UserSchema.save = function(err,cb) {
     }
 }
 
-UserSchema.static = {
+/**
+ * [实例方法]
+ * @type {Object}
+ */
+UserSchema.methods = {
+
+
+}
+
+/**
+ * [静态方法]
+ * @type {Object}
+ */
+UserSchema.statics = {
     findByName: function(name, cb) {
-        return this.findOne({ 'userName': name }).exec(cb);
+        return this.findOne({ userName: name }).exec(cb);
     }
 };
 

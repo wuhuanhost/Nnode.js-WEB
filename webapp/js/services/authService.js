@@ -13,11 +13,17 @@ app.factory("authService", ['$q', '$http', function($q, $http) {
             // console.log(states);
             // console.log(data);
             // $state.go("home");
+            if (data.success === true) {
+                authService.isLogin = true;
+            } else {
+                authService.isLogin = false;
+            }
             deferred.resolve(data);
         }).
         error(function(data, states, headers, config) {
             // console.log("登录请求失败");
             // console.log(states);
+            authService.isLogin = false;
             deferred.reject(data);
         })
         return deferred.promise;
