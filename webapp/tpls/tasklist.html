@@ -1,24 +1,27 @@
- <div ng-controller='taskListCtrl'>
-            <table class="table table-bordered table-hover" ng-model="task">
-                <tr>
-                    <th>要制作汉字</th>
-                    <th>汉字单价</th>
-                    <th>完成截止日期</th>
-                    <th>完成状态</th>
-                    <th>完成时间</th>
-                    <th>审核状态</th>
-                    <th>审核时间</th>
-                    <th>审核备注</th>
-                </tr>
-                <tr ng-repeat="chinese in taskList.chinese">
-                    <td>{{chinese.chinese}}</td>
-                    <td>{{chinese.price/100}}</td>
-                    <td>{{chinese.lastCompleteDate|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{chinese.completeState}}</td>
-                    <td>{{chinese.completeDate|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{chinese.checkState}}</td>
-                    <td>{{chinese.checkTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{chinese.checkRemark}}</td>
-                </tr>
-            </table>
-    </div>
+<div ng-controller='taskListCtrl'>
+    <table class="table table-bordered table-hover" ng-model="task">
+        <tr>
+            <th>要制作汉字</th>
+            <th>汉字单价</th>
+            <th>完成截止日期</th>
+            <th>完成状态</th>
+            <th>完成时间</th>
+            <th>审核状态</th>
+            <th>审核时间</th>
+            <th>审核备注</th>
+        </tr>
+        <tr ng-repeat="chinese in taskList.chinese">
+            <td>{{chinese.chinese}}</td>
+            <td>{{chinese.price/100}}</td>
+            <td>{{chinese.lastCompleteDate|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{chinese.completeState}}</td>
+            <td>{{chinese.completeDate|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{chinese.checkState}}</td>
+            <td>{{chinese.checkTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{chinese.checkRemark}}</td>
+        </tr>
+    </table>
+    <br>
+    <hr>
+    <div ui-grid="gridOptions" ui-grid-pagination class="grid"></div>
+</div>
