@@ -5,16 +5,16 @@ app.controller('taskListCtrl', ["$scope", "$http", "i18nService", "uiGridConstan
                 paginationPageSize: 25,
                 columnDefs: [
                     { name: '要制作的汉字', field: "chinese" },
-                    { name: '汉字单价', field: "price" },
+                    { name: '汉字单价', field: "price",cellFilter:"formatMoney"},
                     { name: '截止日期', field: "lastCompleteDate", cellFilter: 'date:"yyyy年MM月dd日 HH:mm:ss"' }, {
                         name: "完成状态",
                         field: "completeState",
-                        cellFilter:"completeStateFilter"
+                        cellFilter: "completeStateFilter"
                     },
                     { name: "完成时间", field: "completeDate", cellFilter: 'date:"yyyy年MM月dd日 HH:mm:ss"' },
-                    { name: "审核状态", field: "checkState" },
+                    { name: "审核状态", field: "checkState",cellFilter: "completeStateFilter"},
                     { name: "审核时间", field: "checkTime", cellFilter: 'date:"yyyy年MM月dd日 HH:mm:ss"' },
-                    { name: "审核备注", field: "checkRemark" ,cellFilter:'nullFilter'},
+                    { name: "审核备注", field: "checkRemark", cellFilter: 'nullFilter' },
                 ]
             };
 
@@ -33,11 +33,15 @@ app.controller('taskListCtrl', ["$scope", "$http", "i18nService", "uiGridConstan
      * 完成状态过滤器
      */
     return function(input) {
-            return input===0?"未完成":"完成"; 
+        return input === 0 ? "未完成" : "完成";
     };
-}).filter('nullFilter',function(){
-    
-    return function(input){
-        return input===""?"暂无数据":input;
+}).filter('nullFilter', function() {
+    return function(input) {
+        return input === "" ? "暂无数据" : input;
     }
+}).filter('formatMoney', function() {
+    return function(input) {
+        return "￥ "+(input / 100.0).toFixed(2);
+    }
+
 });
