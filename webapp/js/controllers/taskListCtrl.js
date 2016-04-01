@@ -1,8 +1,5 @@
 app.controller('taskListCtrl', ["$scope", "$http", "i18nService", "uiGridConstants", function($scope, $http, i18nService, uiGridConstants) {
-
-
             i18nService.setCurrentLang('zh-cn');
-
             $scope.gridOptions = {
                 paginationPageSizes: [25, 50, 75],
                 paginationPageSize: 25,
