@@ -1,4 +1,9 @@
+/**
+ * 管理mongoose的工具类
+ * @type {[type]}
+ */
 var dbconf = require('../../conf/db.json');
+var mongoose = require('mongoose');
 var DB = (function() {
     var mongoDB = {
         userName: dbconf.userName,
@@ -14,4 +19,19 @@ var DB = (function() {
     return mongoDB;
 }());
 
-module.exports = DB;
+
+//获取mongoose连接
+mongoose.getConeection = function() {
+    return mongoose.createConnection(DB.getUrl());
+}
+
+
+try {
+    mongoose.connect(DB.getUrl());
+    mongoose.set("debug", true); //mongoose调试模式
+} catch (err) {
+    console.log("mongoDB数据库连接异常......");
+}
+
+
+module.exports = mongoose;

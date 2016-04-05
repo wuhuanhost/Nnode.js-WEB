@@ -1,6 +1,5 @@
-var dbinfo = require('../utils/db');
+var mongoose = require('../utils/db');
 var log = require('../utils/log4js');
-var mongoose = require('mongoose');
 var person = require('../models/person');
 var UserModel = require('../models/user-model');
 var MD5 = require('md5');
@@ -12,8 +11,7 @@ var _ = require('lodash');
  * @param  {[type]} err [description]
  * @return {[type]}     [description]
  */
-mongoose.connect(dbinfo.getUrl());
-mongoose.set("debug", true); //mongoose调试模式
+
 
 /**
  * 登录

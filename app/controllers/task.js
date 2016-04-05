@@ -1,6 +1,5 @@
-var dbinfo = require('../utils/db');
+var mongoose = require('../utils/db');
 var log = require('../utils/log4js');
-var mongoose = require('mongoose');
 var ChineseTaskModel = require('../models/chinese-task-model');
 //分配汉字任务
 exports.addChineseTask = function(req, res) {
