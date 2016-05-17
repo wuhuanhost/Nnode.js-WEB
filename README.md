@@ -1,4 +1,6 @@
-Express+mongoDB+AngularJS+Node.js项目
+#Express+mongoDB+AngularJS+Node.js项目
+
+## 版本列表
 
 `Node.js    v4.2.4`
 
@@ -8,6 +10,7 @@ Express+mongoDB+AngularJS+Node.js项目
 
 `Angular.js v1.5.3`
 
+##项目结构
 
 ```
 -app
@@ -40,6 +43,7 @@ Express+mongoDB+AngularJS+Node.js项目
     users.js
 ```
 
+## 服务
 
 1. 启动MongoDB
 2. 启动node服务器
