@@ -1,34 +1,45 @@
-Express+mongoDB
+Express+mongoDB+AngularJS+Node.js项目
 
 `Node.js    v4.2.4`
+
 `Express    v4.13.1`
+
 `MongoDB    v3.2.3`
 
+`Angular.js v1.5.3`
 
 
-
-
-
-app
+```
+-app
     controllers   控制器
     modules       模型
     schemas       模型
     views         视图
-bin
+-conf
+-logs
+-bin
     www   
-doc
+-doc
     readme.md
-lib
+-lib
     angular
     jquery
     bootstrap
-public
+-public
     css
     js
     images
     dist
-routes
+-webapp
+    css
+    js
+    images
+    dist
+-routes
     index.js
     users.js
-sass
-    index.sass
+```
+
+
+1. 启动MongoDB
+2. 启动node服务器
