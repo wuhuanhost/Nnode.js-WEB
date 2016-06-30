@@ -6,3 +6,4 @@ node_modules/
 .deploy*/
 .sass-cache/
 libs/
+**/logs/
