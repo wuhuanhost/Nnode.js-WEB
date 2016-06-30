@@ -13,9 +13,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "/lib",
-    "test",
-    "tests"
+    "test"
   ],
   "dependencies": {
     "jquery": "^1.11.3",
