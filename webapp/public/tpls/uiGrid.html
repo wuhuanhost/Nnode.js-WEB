@@ -1,0 +1,21 @@
+<div>
+    <div class="grid" ui-grid="gridOptions" ui-grid-move-columns></div>
+    <br>
+    <hr>
+    <p><strong>Grid with native pagination controls</strong></p>
+    <div ui-grid="gridOptions1" ui-grid-pagination class="grid"></div>
+    <br />
+    <br />
+    <p><strong>Grid pagination controlled via the API</strong></p>
+    <div ui-grid="gridOptions2" ui-grid-pagination class="grid"></div>
+    <p>Current page: {{ gridApi2.pagination.getPage() }} of {{ gridApi2.pagination.getTotalPages() }}</p>
+    <button type="button" class="btn btn-success" ng-click="gridApi2.pagination.previousPage()">
+        previous page
+    </button>
+    <button type="button" class="btn btn-success" ng-click="gridApi2.pagination.nextPage()">
+        next page
+    </button>
+    <button type="button" class="btn btn-success" ng-click="gridApi2.pagination.seek(3)">
+        go to page 3
+    </button>
+</div>

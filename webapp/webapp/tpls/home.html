@@ -1,0 +1,13 @@
+<div ui-view="home">
+    <div ui-view="nav"></div>
+    <div class="container">
+        <div class="row" style='margin-top:100px;'>
+            <!-- 目录容器 -->
+            <div class="col-md-2" ui-view="directory">
+            </div>
+            <!-- 内容容器 -->
+            <div class="col-md-10" ui-view="content">
+            </div>
+        </div>
+    </div>
+</div>
