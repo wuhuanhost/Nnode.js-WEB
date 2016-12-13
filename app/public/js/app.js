@@ -263,6 +263,7 @@ i18nService.setCurrentLang('zh-cn');
 
 }]);
 
+
 /**
  * [用户登录验证的服务]
  * @param  {[type]} ) {}          [description]
@@ -297,4 +298,3 @@ app.factory("authService", ['$q', '$http', function($q, $http) {
     return authService;
 
 }]);
-
